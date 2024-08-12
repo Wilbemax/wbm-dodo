@@ -1,0 +1,11 @@
+{
+    "semi": false,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "jsxSingleQuote": true,
+    "importOrder": ["^components/(.*)$", "^[./]" ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}
