@@ -11,13 +11,18 @@ type Props = {
     imageUrl: string;
     className?: string;
 }
-//продукт групп 2:01
+//реакт use 2:10
 export const ProductCard = ({ id, name, price, count, imageUrl, className }: Props) => {
     return (
         <div className={className}>
             <Link href={`/product/${id}`}>
                 <div className='flex justify-center p-6 bg-secondary rounded-lg h-[260px]'>
-                    <Image src={`${imageUrl}`} alt="Logo" width={260} height={260} />
+                    <Image
+                        src={imageUrl}
+                        alt="Logo"
+                        width={200} 
+                        height={150} 
+                    />
                 </div>
                 <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
 
