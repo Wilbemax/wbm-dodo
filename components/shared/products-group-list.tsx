@@ -26,7 +26,7 @@ export const ProductsGroupList = ({ title, products, categoryId, className, list
         if (intersection?.isIntersecting){
             setActivatedCategoryById(categoryId)
         }
-    }, [categoryId, intersection?.isIntersecting, title])
+    }, [categoryId, intersection?.isIntersecting, setActivatedCategoryById, title])
 
     return (
         <div className={className} id={title} ref={intersectionRef}>

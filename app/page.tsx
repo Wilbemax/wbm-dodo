@@ -73,7 +73,7 @@ export default function Home() {
                       }
                     ]
                 },]} categoryId={1} />
-               <ProductsGroupList title={"Завтраки"} products={
+               <ProductsGroupList title={"Комбо"} products={
                 [{
                   id: 1,
                   name: 'Пепперони фреш',
