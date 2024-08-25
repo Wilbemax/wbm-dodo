@@ -18,6 +18,7 @@ model User {
 
     provider   String?
     providerId String?
+    verified   DateTime?
 
     cart             Cart?
     orders           Order[]
