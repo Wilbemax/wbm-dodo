@@ -24,16 +24,13 @@ interface QueryFilters extends PriceProps {
 
 export const Filters = ({ className }: Props) => {
     const router = useRouter()
-    const searchParams = new URLSearchParams(useSearchParam('search') || '')
+    // const searchParams = new URLSearchParams(useSearchParam('search') || '')
     const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredients()
 
-    const [size, { toggle: toggleSize }] = useSet<string>(new Set(searchParams.getAll('size') || []))
-    const [pizzaType, { toggle: togglePizzaType }] = useSet<string>(new Set(searchParams.getAll('pizzaType') || []))
+    const [size, { toggle: toggleSize }] = useSet<string>(new Set([]))
+    const [pizzaType, { toggle: togglePizzaType }] = useSet<string>(new Set([]))
 
-    const [price, setPrice] = useState<PriceProps>({
-        priceFrom: Number(searchParams.get('priceFrom')) || undefined,
-        priceTo: Number(searchParams.get('priceTo')) || undefined
-    })
+    const [price, setPrice] = useState<PriceProps>({})
 
     const priceUpdate = (name: keyof PriceProps, value: number) => {
         setPrice({
@@ -44,8 +41,8 @@ export const Filters = ({ className }: Props) => {
 
     const item = ingredients.map((item) => ({ value: String(item.id), text: item.name }))
 
-    console.log(searchParams);
-    
+    // console.log(searchParams);
+
 
     useEffect(() => {
         const filters: QueryFilters = {
