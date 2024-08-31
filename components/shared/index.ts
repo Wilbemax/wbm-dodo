@@ -1,6 +1,6 @@
-export { ChooseProductForm } from './chose-product-form';
-export { PizzaImage } from './pizza-image';
-export { ChoosePizzaForm } from './chose-pizza-form';
+export { ChooseProductForm } from './chose-product-form'
+export { PizzaImage } from './pizza-image'
+export { ChoosePizzaForm } from './chose-pizza-form'
 export { Container } from '@/components/shared/container'
 export { Header } from '@/components/shared/Header'
 export { Title } from '@/components/shared/title'
@@ -11,4 +11,6 @@ export { FilterCheckbox } from '@/components/shared/filter-checkbox'
 export { ProductsGroupList } from '@/components/shared/products-group-list'
 export { GroupVariants } from '@/components/shared/group-variants'
 export { IngredientItem } from '@/components/shared/ingredient-item'
+export { CartButton } from '@/components/shared/cart-button'
+export { CartDriverItem } from '@/components/shared/cart-driver-item'
 export * from '@/components/shared/modal'
