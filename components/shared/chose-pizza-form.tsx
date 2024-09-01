@@ -15,7 +15,7 @@ import { useSet } from 'react-use';
 import { calcTotalPizzaPrice } from '@/lib/calc-total-pizza-price';
 import { usePizzaOptions } from '@/hooks/usePizzaOptions';
 import { getPizzaPrise } from '@/lib/get-pizza-prise';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   imageUrl: string;
@@ -65,7 +65,6 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   const handleClickAdd = () => {
     if (currentItemId) {
       onSubmit(currentItemId, Array.from(selectedIngredients));
-      router.back()
     }
   };
   return (

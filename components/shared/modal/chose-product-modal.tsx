@@ -27,6 +27,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
         addCartItem({
             productItemId: firstItem.id
         })
+        router.back()
     }
 
 
@@ -35,6 +36,8 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
             productItemId,
             ingredients
          })
+         router.back()
+
     }
     
     return (

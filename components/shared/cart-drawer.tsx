@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import {
@@ -11,6 +11,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
+
 } from '@/components/ui/sheet';
 import { Button } from '../ui';
 import Link from 'next/link';
@@ -27,9 +28,10 @@ interface Props {
 }
 
 export const CartDrawer = ({ children }: Props) => {
-    const [totalAmount, items, updateItemQuantity, removeCartItem,fetchCartItems] = useCartStore(state => [
-        state.totalAmount, 
-        state.items, 
+    const [totalAmount, loading, items, updateItemQuantity, removeCartItem, fetchCartItems] = useCartStore(state => [
+        state.totalAmount,
+        state.loading,
+        state.items,
         state.updateItemQuantity,
         state.removeCartItem,
         state.fetchCartItems])
@@ -41,45 +43,45 @@ export const CartDrawer = ({ children }: Props) => {
     //Доделать открывание дравера при добавлении продукта
 
     const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
-        const newQuantity = type === 'plus' ? quantity + 1: quantity - 1
+        const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1
         updateItemQuantity(id, newQuantity)
     }
-    
-   
+
+
 
     return (
-        <Sheet>
+        <Sheet >
             <SheetTrigger > {children} </SheetTrigger>
 
             <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
                 <SheetHeader>
                     <SheetTitle>
-                        В корзине <span className="font-bold">3 товара</span>
+                        В корзине <span className="font-bold">{items.length}</span>
                     </SheetTitle>
                 </SheetHeader>
 
                 <div className='-mx-6 mt-5 overflow-auto flex-1'>
-                {items.map((item) => (
-                  <div key={item.id} className="mb-2">
-                    <CartDriverItem
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      details={item.ingredients && getCartItemDetails(
-                        item.pizzaType as PizzaType,
-                        item.pizzaSize as PizzaSize,
-                        item.ingredients
-                      )}
-                      disabled={item.disabled}
-                      name={item.name}
-                      price={item.price}
-                      quantity={item.quantity}
-                      onClickCountButton={(type) =>
-                        onClickCountButton(item.id, item.quantity, type)
-                      }
-                      onClickRemove={() => removeCartItem(item.id)}
-                    />
-                  </div>
-                ))}
+                    {items.map((item) => (
+                        <div key={item.id} className="mb-2">
+                            <CartDriverItem
+                                id={item.id}
+                                imageUrl={item.imageUrl}
+                                details={item.ingredients && getCartItemDetails(
+                                    item.pizzaType as PizzaType,
+                                    item.pizzaSize as PizzaSize,
+                                    item.ingredients
+                                )}
+                                disabled={item.disabled}
+                                name={item.name}
+                                price={item.price}
+                                quantity={item.quantity}
+                                onClickCountButton={(type) =>
+                                    onClickCountButton(item.id, item.quantity, type)
+                                }
+                                onClickRemove={() => removeCartItem(item.id)}
+                            />
+                        </div>
+                    ))}
                 </div>
 
                 <SheetFooter className="-mx-6 bg-white p-8">
