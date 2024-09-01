@@ -38,6 +38,7 @@ export const CartDrawer = ({ children }: Props) => {
         fetchCartItems()
     }, [])
 
+    //Доделать открывание дравера при добавлении продукта
 
     const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
         const newQuantity = type === 'plus' ? quantity + 1: quantity - 1

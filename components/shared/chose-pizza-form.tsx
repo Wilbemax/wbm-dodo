@@ -15,6 +15,7 @@ import { useSet } from 'react-use';
 import { calcTotalPizzaPrice } from '@/lib/calc-total-pizza-price';
 import { usePizzaOptions } from '@/hooks/usePizzaOptions';
 import { getPizzaPrise } from '@/lib/get-pizza-prise';
+import { useRouter } from 'next/router';
 
 interface Props {
   imageUrl: string;
@@ -30,7 +31,7 @@ interface Props {
 
 
 /**
- * Форма выбора ПРОДУКТА
+ * Форма выбора ПИЦЦЫ
  */
 export const ChoosePizzaForm: React.FC<Props> = ({
   name,
@@ -41,6 +42,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   onSubmit,
   className,
 }) => {
+  const router = useRouter()
   const {
     size,
     type,
@@ -63,6 +65,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   const handleClickAdd = () => {
     if (currentItemId) {
       onSubmit(currentItemId, Array.from(selectedIngredients));
+      router.back()
     }
   };
   return (
@@ -108,7 +111,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         </div>
 
         <Button
-          // onClick={() => onSubmit?.()}
+          onClick={handleClickAdd}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
           Добавить в корзину за {totalPrice} ₽
         </Button>
