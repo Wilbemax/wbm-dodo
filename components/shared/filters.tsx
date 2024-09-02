@@ -4,10 +4,10 @@ import { FilterCheckbox, Title } from '@/components/shared'
 import { Input, RangeSlider } from '../ui'
 import { CheckboxFiltersGroup } from './filter-chexkbox-group'
 import { useFilterIngredients } from '@/hooks/useFilterIngredients'
-import { useSearchParam, useSet } from 'react-use'
+import { useSet } from 'react-use'
 import qs from 'qs'
 import { useRouter } from 'next/navigation'
-
+import { useSearchParams } from 'next/navigation'
 type Props = {
     className?: string
 }
@@ -24,7 +24,7 @@ interface QueryFilters extends PriceProps {
 
 export const Filters = ({ className }: Props) => {
     const router = useRouter()
-    // const searchParams = new URLSearchParams(useSearchParam('search') || '')
+    const searchParams = useSearchParams()
     const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredients()
 
     const [size, { toggle: toggleSize }] = useSet<string>(new Set([]))
@@ -41,7 +41,7 @@ export const Filters = ({ className }: Props) => {
 
     const item = ingredients.map((item) => ({ value: String(item.id), text: item.name }))
 
-    // console.log(searchParams);
+
 
 
     useEffect(() => {

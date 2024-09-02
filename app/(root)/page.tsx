@@ -4,6 +4,7 @@ import { Categories, Container, Filters, ProductsGroupList, SortPopup, Title } f
 import { ProductCard } from "@/components/shared/product-card";
 import { TopBar } from "@/components/shared/top-bar";
 import { prisma } from "@/prisma/prisma-client";
+import { Suspense } from "react";
 
 export default async function Home() {
 
@@ -29,7 +30,10 @@ export default async function Home() {
       <TopBar category={categories.filter((category) => category.products.length > 0)} />
       <Container className="pb-14">
         <div className="flex gap-[60px]">
-          <Filters />
+          <Suspense>
+            <Filters />
+          </Suspense>
+          
 
           <div className="flex-1">
             <div className="flex flex-col gap-16">

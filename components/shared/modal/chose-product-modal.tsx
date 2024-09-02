@@ -11,6 +11,7 @@ import { ChooseProductForm } from '../chose-product-form';
 import { ProductWithRelations } from '@/@types/prisma';
 import { ChoosePizzaForm } from '../chose-pizza-form';
 import { useCartStore } from '@/store/cart';
+import toast from 'react-hot-toast';
 
 interface Props {
     product: ProductWithRelations;
@@ -21,25 +22,38 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
     const router = useRouter();
     const firstItem = product.items[0]
     const isPizza = Boolean(firstItem.pizzaType)
-    const addCartItem = useCartStore(state => state.addCartItem)
+    const [loading, addCartItem] = useCartStore(state => [state.loading, state.addCartItem])
 
-    const onAddProduct = () => {
-        addCartItem({
-            productItemId: firstItem.id
-        })
-        router.back()
-    }
+    const onAddProduct = async () => {
+        try {
+            await addCartItem({
+                productItemId: firstItem.id
+            })
+            toast.success('Товар успешно добавлен',)
+            router.back()
+        } catch (e) {
+            toast.error('Произошла ошибка при добавлении товара')
+        }
 
 
-    const onAddPizza = (productItemId: number, ingredients: number[]) => {
-         addCartItem({
-            productItemId,
-            ingredients
-         })
-         router.back()
 
     }
-    
+
+
+    const onAddPizza = async(productItemId: number, ingredients: number[]) => {
+        try {
+            addCartItem({
+                productItemId,
+                ingredients
+            })
+            toast.success('Товар успешно добавлен',)
+            router.back()
+        } catch (e) {
+            toast.error('Произошла ошибка при добавлении товара')
+        }
+
+    }
+
     return (
         <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
             <DialogContent
@@ -49,7 +63,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
                     className,
                 )}>
                 {
-                    isPizza ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} onSubmit={onAddPizza} ingredients={product.ingredients} items={product.items} /> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} price={firstItem.price} onSubmit={onAddProduct} />
+                    isPizza ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} onSubmit={onAddPizza} ingredients={product.ingredients} items={product.items} loading={loading}/> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} price={firstItem.price} onSubmit={onAddProduct} loading={loading}/>
                 }
 
             </DialogContent>

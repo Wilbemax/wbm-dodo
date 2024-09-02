@@ -28,9 +28,7 @@ export const updateCartTotalAmount = async (token: string) => {
   }
 
   const totalAmount = userCart.items.reduce((acc, item) => {
-    console.log('fadfasdfa----------------------------------------------------------------------------------------');
-    
-    
+   
     return acc + getCartItemTotalPrice(item)
   }, 0)
 
