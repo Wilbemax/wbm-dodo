@@ -32,6 +32,7 @@ export const CartDrawer = ({ children }: Props) => {
         state.totalAmount,
         state.loading,
         state.items,
+        
         state.updateItemQuantity,
         state.removeCartItem,
         state.fetchCartItems])
@@ -98,7 +99,8 @@ export const CartDrawer = ({ children }: Props) => {
                         <Link href="/checkout">
                             <Button
                                 //   onClick={() => setRedirecting(true)}
-                                //   loading={redirecting}
+                                loading={loading}
+                                disabled={items.length == 0}
                                 type="submit"
                                 className="w-full h-12 text-base">
                                 Оформить заказ

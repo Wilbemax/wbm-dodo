@@ -12,6 +12,7 @@ import { ProductWithRelations } from '@/@types/prisma';
 import { ChoosePizzaForm } from '../chose-pizza-form';
 import { useCartStore } from '@/store/cart';
 import toast from 'react-hot-toast';
+import { ProductForm } from '../product-form';
 
 interface Props {
     product: ProductWithRelations;
@@ -62,9 +63,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
                     'p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden',
                     className,
                 )}>
-                {
-                    isPizza ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} onSubmit={onAddPizza} ingredients={product.ingredients} items={product.items} loading={loading}/> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} price={firstItem.price} onSubmit={onAddProduct} loading={loading}/>
-                }
+                <ProductForm product={product} onSubmit={() => router.back()}/>
 
             </DialogContent>
         </Dialog>

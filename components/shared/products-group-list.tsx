@@ -6,10 +6,11 @@ import { ProductCard } from "./product-card"
 import { useIntersection } from 'react-use'
 import { useEffect, useRef } from "react"
 import { useCategoryStore } from "@/store/category"
+import { ProductWithRelations } from "@/@types/prisma"
 
 type Props = {
     title: string
-    products: any[]
+    products: ProductWithRelations[]
     className?: string
     listClassName?: string
     categoryId: number
@@ -39,7 +40,9 @@ export const ProductsGroupList = ({ title, products, categoryId, className, list
                         id={product.id}
                         name={product.name}
                         price={product.items[0].price}
-                        imageUrl={product.imageUrl} />
+                        imageUrl={product.imageUrl}
+                        ingredients={product.ingredients} />
+                        
                 )}
             </div>
         </div>

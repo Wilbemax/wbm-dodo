@@ -6,20 +6,21 @@ import { ArrowRight, ShoppingCart } from 'lucide-react';
 import { CartDrawer } from './cart-drawer';
 import { useCartStore } from '@/store/cart';
 import { clearTimeout } from 'timers';
+import { cn } from '@/lib/utils';
 
 type Props = {};
 
 
 
 const CartButton = (props: Props) => {
-    const items = useCartStore(state => state.items)
-    
+    const [loading, totalAmount, items] = useCartStore(state => [state.loading, state.totalAmount, state.items])
+
 
 
     return (
         <CartDrawer >
-            <Button className="group relative">
-                <b>520 ₽</b>
+            <Button className={cn('group relative', { 'w-[105px]': loading })} loading={loading}>
+                <b>{totalAmount}₽</b>
                 <span className="h-full w-[1px] bg-white/30 mx-3" />
                 <div className="flex gap-1 items-center transition duration-300 group-hover:opacity-0">
                     <ShoppingCart className="relative" size={16} strokeWidth={2} />
