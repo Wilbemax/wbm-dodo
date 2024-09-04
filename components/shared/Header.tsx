@@ -2,15 +2,21 @@ import Image from "next/image"
 import { Container } from "./container"
 import Logo from '@/public/logo.png'
 import { Button } from "../ui"
-import { ArrowRight, ShoppingCart, User } from "lucide-react"
+import { User } from "lucide-react"
 import { SearchInput } from "./search-input"
 import Link from "next/link"
 import { CartButton } from "./cart-button"
-type Props = {}
+import { cn } from "@/lib/utils"
+import { DirecButtonHeader } from "./direct-button-header"
+type Props = {
+    hasSearch?: boolean,
+    hasCart?: boolean,
+    className?: string,
+}
 
-export const Header = (props: Props) => {
+export const Header = ({ hasSearch = true, hasCart = true, className}: Props) => {
     return (
-        <header className="border-b border-gray-100">
+        <header className={cn("border-b border-gray-100", className)}>
             <Container className="flex items-center justify-between py-8">
                 <Link href={'/'} className=" flex items-center gap-4">
                     <Image src={Logo} alt='Logo' width={35} height={35} />
@@ -19,17 +25,19 @@ export const Header = (props: Props) => {
                         <p className="text-sm text-gray-400 leading-3">По пробуй новое</p>
                     </div>
                 </Link>
+                {hasSearch &&
+                    <div className="mx-10 flex-1">
+                        <SearchInput />
+                    </div>
+                }
 
-                <div className="mx-10 flex-1">
-                    <SearchInput />
-                </div>
 
                 <div className="flex items-center gap-3">
                     <Button variant={'outline'} className="flex items-center gap-3">
                         <User size={16} />
                         Войти
                     </Button>
-                    <CartButton />
+                    {hasCart ? <CartButton /> : <DirecButtonHeader/> }
                 </div>
             </Container>
         </header>

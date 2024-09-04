@@ -23,6 +23,8 @@ import { PizzaSize, PizzaType } from '@/constants/pizza';
 import { Title } from './title';
 import cart from '@/public/images/empty-box.png'
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useCart } from '@/hooks/useCart';
 
 interface Props {
     onClickCountButton?: (type: 'plus' | 'minus') => void
@@ -30,18 +32,8 @@ interface Props {
 }
 
 export const CartDrawer = ({ children }: Props) => {
-    const [totalAmount, loading, items, updateItemQuantity, removeCartItem, fetchCartItems] = useCartStore(state => [
-        state.totalAmount,
-        state.loading,
-        state.items,
-
-        state.updateItemQuantity,
-        state.removeCartItem,
-        state.fetchCartItems])
-
-    useEffect(() => {
-        fetchCartItems()
-    }, [])
+    const router = useRouter()
+    const {totalAmount, loading, items, updateItemQuantity, removeCartItem} = useCart()
 
     //Доделать открывание дравера при добавлении продукта
 
@@ -50,7 +42,9 @@ export const CartDrawer = ({ children }: Props) => {
         updateItemQuantity(id, newQuantity)
     }
 
-
+    const redirect = () => {
+        router.push('/checkout')
+    }
 
     return (
         <Sheet >
@@ -119,7 +113,7 @@ export const CartDrawer = ({ children }: Props) => {
 
                                 <Link href="/checkout">
                                     <Button
-                                        //   onClick={() => setRedirecting(true)}
+                                        onClick={redirect}
                                         loading={loading}
                                         disabled={items.length == 0}
                                         type="submit"
