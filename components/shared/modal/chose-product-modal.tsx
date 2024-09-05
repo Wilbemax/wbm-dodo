@@ -4,14 +4,8 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { DialogContent, Dialog, DialogTitle } from '@/components/ui/dialog';
-import { Product } from '@prisma/client';
-import { Title } from '../title';
-import { ChooseProductForm } from '../chose-product-form';
+import { DialogContent, Dialog } from '@/components/ui/dialog';
 import { ProductWithRelations } from '@/@types/prisma';
-import { ChoosePizzaForm } from '../chose-pizza-form';
-import { useCartStore } from '@/store/cart';
-import toast from 'react-hot-toast';
 import { ProductForm } from '../product-form';
 
 interface Props {
@@ -21,39 +15,6 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
     const router = useRouter();
-    const firstItem = product.items[0]
-    const isPizza = Boolean(firstItem.pizzaType)
-    const [loading, addCartItem] = useCartStore(state => [state.loading, state.addCartItem])
-
-    const onAddProduct = async () => {
-        try {
-            await addCartItem({
-                productItemId: firstItem.id
-            })
-            toast.success('Товар успешно добавлен',)
-            router.back()
-        } catch (e) {
-            toast.error('Произошла ошибка при добавлении товара')
-        }
-
-
-
-    }
-
-
-    const onAddPizza = async(productItemId: number, ingredients: number[]) => {
-        try {
-            addCartItem({
-                productItemId,
-                ingredients
-            })
-            toast.success('Товар успешно добавлен',)
-            router.back()
-        } catch (e) {
-            toast.error('Произошла ошибка при добавлении товара')
-        }
-
-    }
 
     return (
         <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>

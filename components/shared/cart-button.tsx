@@ -16,7 +16,6 @@ const CartButton = (props: Props) => {
     const [loading, totalAmount, items] = useCartStore(state => [state.loading, state.totalAmount, state.items])
 
 
-
     return (
         <CartDrawer >
             <Button className={cn('group relative', { 'w-[105px]': loading })} loading={loading}>

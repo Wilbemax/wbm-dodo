@@ -10,7 +10,7 @@ interface IconButtonProps {
   onClick?: () => void;
 }
 
-export const CountIconButton: React.FC<IconButtonProps> = ({
+export const    лдддддCountIconButton: React.FC<IconButtonProps> = ({
   size = 'sm',
   disabled,
   type,
