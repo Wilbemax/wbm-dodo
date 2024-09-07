@@ -39,7 +39,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             variant="secondary"
             onClick={() =>
               signIn('github', {
-                callbackUrl: 'https://wbm-dodo-mo6lohp1d-maxutka98s-projects.vercel.app/',
+                callbackUrl: 'https://wbm-dodo-fgq6zum5j-maxutka98s-projects.vercel.app/',
                 redirect: true,
               })
             }
