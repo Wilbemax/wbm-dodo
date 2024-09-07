@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image"
 import { Container } from "./container"
 import Logo from '@/public/logo.png'
@@ -8,13 +9,22 @@ import Link from "next/link"
 import { CartButton } from "./cart-button"
 import { cn } from "@/lib/utils"
 import { DirecButtonHeader } from "./direct-button-header"
+import { signIn, useSession } from "next-auth/react"
+import { useState } from "react"
+import { AuthModal } from "./modal/auth-modal"
+import { ProfileButton } from "./profile-button"
 type Props = {
     hasSearch?: boolean,
     hasCart?: boolean,
     className?: string,
 }
 
-export const Header = ({ hasSearch = true, hasCart = true, className}: Props) => {
+export const Header = ({ hasSearch = true, hasCart = true, className }: Props) => {
+    const { data: session } = useSession()
+    const [openAuthModal, setOpenAuthModal] = useState(false);
+
+    console.log(session, 1111);
+
     return (
         <header className={cn("border-b border-gray-100", className)}>
             <Container className="flex items-center justify-between py-8">
@@ -33,11 +43,10 @@ export const Header = ({ hasSearch = true, hasCart = true, className}: Props) =>
 
 
                 <div className="flex items-center gap-3">
-                    <Button variant={'outline'} className="flex items-center gap-3">
-                        <User size={16} />
-                        Войти
-                    </Button>
-                    {hasCart ? <CartButton /> : <DirecButtonHeader/> }
+                    <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+                    <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+                    {hasCart ? <CartButton /> : <DirecButtonHeader />}
                 </div>
             </Container>
         </header>

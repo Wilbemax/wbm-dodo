@@ -25,7 +25,6 @@ export const ChooseProductForm: React.FC<Props> = ({
   className,
   loading,
 }) => {
-  console.log(imageUrl);
   
   return (
     <div className={cn(className, 'flex flex-1')}>

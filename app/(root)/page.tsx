@@ -10,7 +10,6 @@ import { Suspense } from "react";
 export default async function Home({searchParams} : {searchParams: GetSearchParams}) {
 
   const categories = await findPizzas(searchParams)
-  // console.log(categories.map(category => category.products));
   
 
 
@@ -22,14 +21,14 @@ export default async function Home({searchParams} : {searchParams: GetSearchPara
       </Container>
       <TopBar category={categories.filter((category) => category.products.length > 0)} />
       <Container className="pb-14">
-        <div className="flex gap-[60px]">
+        <div className="flex gap-[60px] mt-10">
           <Suspense>
             <Filters />
           </Suspense>
           
 
           <div className="flex-1">
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-16 ">
               {categories.map((category) => (
                 category.products.length > 0 && (
                   < ProductsGroupList

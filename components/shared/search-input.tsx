@@ -40,8 +40,6 @@ export const SearchInput: FC = (props: Props) => {
         setProducts([])
     }
 
-    console.log(products);
-
     return (
         <>
 

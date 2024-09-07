@@ -13,10 +13,36 @@ import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { checkoutSchema, TCheckoutSchema } from "@/components/shared/checkout/checkout-schema";
+import { useState } from "react";
+import { createOrder } from "@/app/actions";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CheckOut() {
+    const router = useRouter();
     const { totalAmount, loading, items, updateItemQuantity, removeCartItem, } = useCart()
+    const [submitting, setSubmitting] = useState<boolean>(false)
 
+    const onSubmit = async (data: TCheckoutSchema) => {
+    try {
+      setSubmitting(true);
+
+      const url = await createOrder(data);
+
+      toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
+        icon: '✅',
+      });
+
+      router.push('/')
+      
+    } catch (err) {
+      console.log(err);
+      setSubmitting(false);
+      toast.error('Не удалось создать заказ', {
+        icon: '❌',
+      });
+    }
+  };
 
     const form = useForm<TCheckoutSchema>({
         resolver: zodResolver(checkoutSchema),
@@ -35,10 +61,7 @@ export default function CheckOut() {
         updateItemQuantity(id, newQuantity);
     };
 
-    const onSubmit = (data: TCheckoutSchema) => {
-        console.log(data);
-    }
-
+   
     return (
         <Container className="mt-10">
             <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
@@ -59,7 +82,7 @@ export default function CheckOut() {
                             <CheckoutAddressForm className={loading ? 'opacity-50 pointer-events-none' : ''}/>
                         </div>
                         <div className="w-[450px]">
-                            <CheckoutSideBar totalAmount={totalAmount} loading={loading} />
+                            <CheckoutSideBar totalAmount={totalAmount} loading={submitting || loading} />
                         </div>
                     </div>
                 </form>

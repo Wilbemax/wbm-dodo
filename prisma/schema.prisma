@@ -125,7 +125,7 @@ model Order {
 
     items Json
 
-    fullItem String
+    fullName String
     email    String
     phone    String
     address  String
@@ -140,6 +140,7 @@ model VereficationCode {
 
     user   User @relation(fields: [userId], references: [id])
     userId Int  @unique
+    code String
 
     createdAt DateTime @default(now())
 }
