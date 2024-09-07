@@ -6,14 +6,7 @@ In this project i am trying to use some new technology for me. Wbm - dodo pizza 
 
 #### The link to web site is here 
 
-[tabs]
-
-[tab:first stage of production::]
-
+first stage of production
 <https://wbm-dodo.vercel.app/>
-
-[/tab]
-
-[/tabs]
 
 
