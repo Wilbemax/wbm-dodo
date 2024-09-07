@@ -23,7 +23,7 @@ export const Header = ({ hasSearch = true, hasCart = true, className }: Props) =
     const { data: session } = useSession()
     const [openAuthModal, setOpenAuthModal] = useState(false);
 
-    console.log(session, 1111);
+    
 
     return (
         <header className={cn("border-b border-gray-100", className)}>
